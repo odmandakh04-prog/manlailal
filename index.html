@@ -272,6 +272,82 @@ body.sub .home{display:none}
   .subtabs{gap:6px 20px;font-size:15px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scrollhint i::after{animation:none}}
+
+/* ===== 3D хөдөлгөөн ===== */
+.fx3d{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.6s ease}
+.fx3d.on{opacity:1}
+.tilt{position:relative}
+.tilt::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,234,186,.32),rgba(255,234,186,0) 55%);opacity:0;transition:opacity .35s;z-index:3}
+.tilt:hover::after{opacity:1}
+@media (prefers-reduced-motion:no-preference){
+  .hero::before{transform:translate3d(calc(var(--mx,0)*-16px),calc(var(--hy,0px) + var(--my,0)*-12px),0) scale(1.1);transition:transform .25s ease-out;will-change:transform}
+  .hero h1{perspective:700px}
+  .hero-in>h1{animation:none}
+  .hero h1 .w{display:inline-block;transform-style:preserve-3d}
+  .hero h1 .w>span{display:inline-block;transform-origin:50% 100% -0.3em;animation:flip3d 1.15s cubic-bezier(.2,.75,.2,1) both;animation-delay:calc(.1s + var(--k,0)*.13s)}
+  @keyframes flip3d{from{opacity:0;transform:translateY(.35em) rotateX(-95deg)}60%{opacity:1}to{opacity:1;transform:none}}
+  main .wrap,.grid,.its,.stats,.teachers,.duo,.about,.dir,.tsplit,.sgrid,.work,.steps,.facts{perspective:1400px}
+  .rv{transform-origin:50% 100%;transition:opacity .9s ease,translate .9s cubic-bezier(.2,.7,.2,1),rotate .9s cubic-bezier(.2,.7,.2,1),scale .9s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*110ms)}
+  .rv:not(.in){rotate:x 24deg;scale:.94}
+  .rv.in{rotate:none;scale:none}
+  .rv.tilt,.rv.teacher{transition:opacity .9s ease,translate .9s cubic-bezier(.2,.7,.2,1),rotate .9s cubic-bezier(.2,.7,.2,1),scale .9s cubic-bezier(.2,.7,.2,1),transform .25s ease-out,box-shadow .25s;transition-delay:calc(var(--i,0)*110ms),calc(var(--i,0)*110ms),calc(var(--i,0)*110ms),calc(var(--i,0)*110ms),0s,0s}
+  .depth{transform-origin:50% 0;will-change:transform}
+  .btn{transition:filter .2s,transform .2s,translate .35s cubic-bezier(.2,.7,.2,1)}
+  .mark{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+  .brand:hover .mark{transform:perspective(300px) rotateY(360deg)}
+  .it svg{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+  .it:hover svg{transform:perspective(300px) rotateY(180deg) scale(1.1)}
+  .cta-banner .cap{animation:capfloat 7s ease-in-out infinite;transform-origin:50% 50%}
+  @keyframes capfloat{0%,100%{transform:perspective(500px) translateY(0) rotateY(-12deg) rotateX(6deg)}50%{transform:perspective(500px) translateY(-12px) rotateY(14deg) rotateX(-4deg)}}
+  .band::after{animation:orb 9s ease-in-out infinite}
+  @keyframes orb{0%,100%{transform:scale(1);box-shadow:0 0 0 60px rgba(232,203,147,.05)}50%{transform:scale(1.06);box-shadow:0 0 0 90px rgba(232,203,147,.03)}}
+  .swoosh path{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.4s .6s cubic-bezier(.4,0,.2,1) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+}
+
+/* ===== Hero: зургийн загвар ===== */
+.hero{--pw:56%;background:#0B1426;min-height:600px;padding:80px 0}
+.hero::before{background:radial-gradient(60% 80% at 12% 30%,rgba(40,62,110,.55),rgba(11,20,38,0) 70%),linear-gradient(180deg,#0E1830,#0A1222);transform:none;transition:none}
+.hero::after{display:none}
+.hero-photo{position:absolute;top:0;right:0;bottom:0;width:var(--pw);clip-path:ellipse(100% 125% at 100% 50%);overflow:hidden;z-index:0}
+.hero-photo img{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;object-position:center 30%;transform:translate3d(calc(var(--mx,0)*-12px),calc(var(--hy,0px)*.5 + var(--my,0)*-8px),0);transition:transform .25s ease-out}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,20,38,.55),rgba(11,20,38,0) 22%)}
+.hero-arc{position:absolute;border-radius:50%;pointer-events:none;z-index:1;--o:16px;left:calc(100% - var(--pw) - var(--o));width:calc(var(--pw)*2 + var(--o)*2);top:calc(-75% - var(--o));height:calc(250% + var(--o)*2);border:1.5px solid rgba(232,203,147,.75)}
+.hero-arc.a2{--o:38px;border-width:1px;border-color:rgba(232,203,147,.3)}
+.hero-ring{position:absolute;z-index:1;width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(232,203,147,.85);left:calc(100% - var(--pw) - 16px);top:17%;translate:-30% -50%}
+.hero-spiral{position:absolute;z-index:1;width:84px;height:84px;left:calc(100% - var(--pw) + 4px);top:84%;translate:-50% -50%}
+.hero-star{position:absolute;z-index:1;left:7%;top:23%;width:90px;height:90px;translate:-50% -50%;pointer-events:none;background:radial-gradient(circle,rgba(255,240,205,1) 0,rgba(255,214,140,.85) 4%,rgba(232,180,100,.25) 18%,rgba(232,180,100,0) 45%)}
+.hero-star::before,.hero-star::after{content:"";position:absolute;left:50%;top:50%;width:100%;height:2px;translate:-50% -50%;background:linear-gradient(90deg,transparent,rgba(255,236,196,.9),transparent)}
+.hero-star::after{rotate:90deg;width:60%}
+.hero .wrap{z-index:2}
+/* шар тоосонцор зөвхөн зүүн бараан хэсэгт — зургийн урд гарахгүй */
+.hero .fx3d{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - var(--pw) - 120px),transparent calc(100% - var(--pw) - 30px));mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - var(--pw) - 120px),transparent calc(100% - var(--pw) - 30px))}
+.hero-photo img{image-rendering:auto;filter:contrast(1.04) saturate(1.05)}
+.hero-in{max-width:calc(44vw - max(28px,(100vw - 1120px)/2 + 28px) - 60px)}
+.hero h1{font-size:clamp(34px,4.1vw,56px);max-width:14ch;color:#E3C48C;font-weight:500;line-height:1.14;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.hero p.sub{font-size:clamp(20px,2.3vw,30px);color:#fff;font-weight:500;line-height:1.3;max-width:20ch;margin:22px 0 34px}
+@media (prefers-reduced-motion:no-preference){
+  .hero-star{animation:twinkle 4s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.75;scale:.85;rotate:0deg}50%{opacity:1;scale:1.12;rotate:20deg}}
+  .hero-spiral{animation:spin 30s linear infinite}
+  @keyframes spin{to{rotate:360deg}}
+  .hero-ring{animation:ringp 3.5s ease-in-out infinite}
+  @keyframes ringp{0%,100%{box-shadow:0 0 0 0 rgba(232,203,147,.35)}50%{box-shadow:0 0 0 8px rgba(232,203,147,0)}}
+  .hero-photo{animation:photoin 1.4s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes photoin{from{opacity:0;clip-path:ellipse(0% 125% at 100% 50%)}to{opacity:1;clip-path:ellipse(100% 125% at 100% 50%)}}
+  .hero-arc{animation:arcin 1.6s .3s cubic-bezier(.2,.7,.2,1) both}
+  .hero-arc.a2{animation-delay:.5s}
+  @keyframes arcin{from{opacity:0;scale:.9}to{opacity:1;scale:1}}
+}
+@media (max-width:820px){
+  .hero{--pw:100%;min-height:560px;padding:64px 0 80px}
+  .hero-photo{clip-path:none!important}
+  .hero-photo::after{background:linear-gradient(180deg,rgba(11,20,38,.88),rgba(11,20,38,.6))}
+  .hero-arc,.hero-ring,.hero-spiral{display:none}
+  .hero-in{max-width:none}
+  .hero-star{left:86%;top:12%}
+  .hero .fx3d{display:none}
+}
 </style>
 </head>
 <body>
@@ -296,13 +372,17 @@ body.sub .home{display:none}
 <div class="hero home">
   <div class="wrap">
     <div class="hero-in" id="heroin">
-      <h1>Манлайлал өөрөөсөө <span class="gold">эхэлдэг</span></h1>
-      <p class="sub">Албан тушаал бол нэг агшин. Жинхэнэ манлайлал бол чанар, үнэт зүйл, чадвараа тасралтгүй хөгжүүлэх урт замнал юм.</p>
+      <h1>Ирээдүйн манлайлагчдыг бэлтгэнэ</h1>
+      <p class="sub">Мэдлэг, ур чадвар, өөртөө итгэх итгэл</p>
       <div class="btns"><a class="btn gold" href="#programs">Сургалтууд үзэх <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="#about">Бидний тухай</a></div>
       <div class="scrollhint"><i></i>Доош гүйлгэнэ үү</div>
     </div>
   </div>
-  <svg class="swoosh" viewBox="0 0 1000 140" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="sg" x1="0" x2="1"><stop offset="0" stop-color="#E8CB93" stop-opacity="0"/><stop offset=".6" stop-color="#E8CB93"/><stop offset="1" stop-color="#C79B55"/></linearGradient></defs><path d="M0 140C380 140 700 112 1000 6" fill="none" stroke="url(#sg)" stroke-width="3"/></svg>
+  <div class="hero-photo" aria-hidden="true"><img src="hero.jpg" alt=""></div>
+  <span class="hero-arc a1" aria-hidden="true"></span><span class="hero-arc a2" aria-hidden="true"></span>
+  <span class="hero-ring" aria-hidden="true"></span>
+  <svg class="hero-spiral" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#E8CB93"><circle cx="50" cy="50" r="48" stroke-width=".8" opacity=".55"/><circle cx="50" cy="50" r="40" stroke-width=".8" opacity=".65"/><circle cx="50" cy="50" r="32" stroke-width=".8" opacity=".75"/><circle cx="50" cy="50" r="24" stroke-width=".9" opacity=".85"/><circle cx="50" cy="50" r="16" stroke-width="1"/><circle cx="50" cy="50" r="8" stroke-width="1"/></g></svg>
+  <span class="hero-star" aria-hidden="true"></span>
 </div>
 
 <section class="sec home" id="levels">
@@ -690,8 +770,10 @@ body.sub .home{display:none}
     el.addEventListener('pointermove',function(e){
       if(e.pointerType!=='mouse')return;
       var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
-      el.style.setProperty('--ry',((x-.5)*10).toFixed(2)+'deg');
-      el.style.setProperty('--rx',((.5-y)*8).toFixed(2)+'deg');
+      el.style.setProperty('--ry',((x-.5)*16).toFixed(2)+'deg');
+      el.style.setProperty('--rx',((.5-y)*12).toFixed(2)+'deg');
+      el.style.setProperty('--gx',(x*100).toFixed(1)+'%');
+      el.style.setProperty('--gy',(y*100).toFixed(1)+'%');
     });
     el.addEventListener('pointerleave',function(){el.style.setProperty('--rx','0deg');el.style.setProperty('--ry','0deg');});
   }
@@ -718,10 +800,124 @@ body.sub .home{display:none}
       var r=el.getBoundingClientRect(),c=r.top+r.height/2,d=Math.abs(c-vh*.5)/(vh*.7),p=Math.max(0,1-d);
       el.style.setProperty('--s',(0.9+0.2*p).toFixed(3));
     });
-    if(y<vh){heroIn.style.transform='translateY('+(y*.18).toFixed(1)+'px)';heroIn.style.opacity=Math.max(0,1-y/(vh*.75)).toFixed(2);}
+    if(y<vh){
+      heroIn.style.transform='perspective(1000px) translateY('+(y*.18).toFixed(1)+'px) rotateX('+(y*.035).toFixed(2)+'deg) translateZ('+(-y*.3).toFixed(1)+'px)';
+      heroIn.style.opacity=Math.max(0,1-y/(vh*.75)).toFixed(2);
+      heroEl.style.setProperty('--hy',(y*.35).toFixed(1)+'px');
+    }
+    /* хэсгүүд доороос 3D гүнээс босож ирнэ */
+    depth.forEach(function(el){
+      var r=el.getBoundingClientRect(),t=Math.max(0,Math.min(1,(r.top-vh*.3)/(vh*.7)));
+      el.style.transform=t>0?'perspective(1400px) rotateX('+(t*16).toFixed(2)+'deg) scale('+(1-t*.05).toFixed(3)+')':'';
+    });
   }
+  var heroEl=document.querySelector('.hero'),depth=[].slice.call(document.querySelectorAll('.home.sec>.wrap,.band>.wrap'));
+  depth.forEach(function(el){el.classList.add('depth');});
   window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd);}},{passive:true});
   window.addEventListener('resize',upd);window.addEventListener('hashchange',upd);upd();
+
+  /* гарчгийн үг бүр 3D эргэж гарч ирнэ (текст өөрчлөгдөхгүй) */
+  (function(){
+    var h1=document.querySelector('.hero h1'),k=0;if(!h1)return;
+    h1.setAttribute('aria-label',h1.textContent.replace(/\s+/g,' ').trim());
+    (function walk(n){[].slice.call(n.childNodes).forEach(function(c){
+      if(c.nodeType===3){
+        var f=document.createDocumentFragment();
+        c.textContent.split(/(\s+)/).forEach(function(p){
+          if(!p)return;
+          if(/^\s+$/.test(p)){f.appendChild(document.createTextNode(p));return;}
+          var w=document.createElement('span'),i=document.createElement('span');
+          w.className='w';w.setAttribute('aria-hidden','true');i.textContent=p;i.style.setProperty('--k',k++);w.appendChild(i);f.appendChild(w);
+        });
+        c.parentNode.replaceChild(f,c);
+      }else if(c.nodeType===1)walk(c);
+    });})(h1);
+  })();
+
+  /* соронзон товчнууд */
+  document.querySelectorAll('.btn').forEach(function(b){
+    b.addEventListener('pointermove',function(e){
+      if(e.pointerType!=='mouse')return;
+      var r=b.getBoundingClientRect();
+      b.style.translate=((e.clientX-r.left-r.width/2)*.2).toFixed(1)+'px '+((e.clientY-r.top-r.height/2)*.35).toFixed(1)+'px';
+    });
+    b.addEventListener('pointerleave',function(){b.style.translate='';});
+  });
+
+  /* hero: хулганаар гүн мэдрэмж + Three.js 3D алтан объект, бөөмс */
+  (function(){
+    var hero=heroEl;if(!hero)return;
+    var tx=0,ty=0;
+    hero.addEventListener('pointermove',function(e){
+      var r=hero.getBoundingClientRect();
+      tx=(e.clientX-r.left)/r.width*2-1;ty=(e.clientY-r.top)/r.height*2-1;
+      hero.style.setProperty('--mx',tx.toFixed(3));hero.style.setProperty('--my',ty.toFixed(3));
+    });
+    hero.addEventListener('pointerleave',function(){tx=ty=0;hero.style.setProperty('--mx',0);hero.style.setProperty('--my',0);});
+
+    var s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+    s.onload=init;document.head.appendChild(s);
+
+    function init(){
+      var T=window.THREE;if(!T)return;
+      var cv=document.createElement('canvas');cv.className='fx3d';cv.setAttribute('aria-hidden','true');
+      hero.insertBefore(cv,hero.querySelector('.swoosh'));
+      var R;try{R=new T.WebGLRenderer({canvas:cv,alpha:true,antialias:true});}catch(err){cv.remove();return;}
+      R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+      var scene=new T.Scene(),cam=new T.PerspectiveCamera(55,1,.1,100);cam.position.z=10;
+      var gold=new T.Color('#E8CB93');
+
+      /* алтан тоосонцор */
+      var N=innerWidth<820?420:900,pos=new Float32Array(N*3);
+      for(var i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*28;pos[i*3+1]=(Math.random()-.5)*16;pos[i*3+2]=Math.random()*-18+6;}
+      var pg=new T.BufferGeometry();pg.setAttribute('position',new T.BufferAttribute(pos,3));
+      var tc=document.createElement('canvas');tc.width=tc.height=64;
+      var cx=tc.getContext('2d'),gr=cx.createRadialGradient(32,32,0,32,32,32);
+      gr.addColorStop(0,'rgba(255,242,210,1)');gr.addColorStop(.35,'rgba(232,203,147,.55)');gr.addColorStop(1,'rgba(232,203,147,0)');
+      cx.fillStyle=gr;cx.fillRect(0,0,64,64);
+      var pts=new T.Points(pg,new T.PointsMaterial({size:.17,map:new T.CanvasTexture(tc),transparent:true,depthWrite:false,blending:T.AdditiveBlending,opacity:.85}));
+      scene.add(pts);
+
+      /* 3D объект: алтан олон талт + тойрог зам */
+      var grp=new T.Group(); /* 3D объектыг шинэ загварт харуулахгүй (зөвхөн тоосонцор) */
+      var ico=new T.LineSegments(new T.EdgesGeometry(new T.IcosahedronGeometry(2.1,1)),new T.LineBasicMaterial({color:gold,transparent:true,opacity:.55}));grp.add(ico);
+      var core=new T.Mesh(new T.IcosahedronGeometry(1.2,0),new T.MeshStandardMaterial({color:'#E8CB93',metalness:.75,roughness:.3,flatShading:true,emissive:'#6e511d',transparent:true,opacity:.92}));grp.add(core);
+      var r1=new T.Mesh(new T.TorusGeometry(3.1,.018,8,180),new T.MeshBasicMaterial({color:gold,transparent:true,opacity:.6}));r1.rotation.x=1.2;grp.add(r1);
+      var r2=new T.Mesh(new T.TorusGeometry(3.9,.012,8,180),new T.MeshBasicMaterial({color:gold,transparent:true,opacity:.32}));r2.rotation.set(.4,.9,0);grp.add(r2);
+      var moons=[];
+      for(var k=0;k<3;k++){var m=new T.Mesh(new T.SphereGeometry(.12+k*.03,20,20),new T.MeshStandardMaterial({color:'#F0D6A0',metalness:.8,roughness:.2,emissive:'#5a4218'}));grp.add(m);moons.push(m);}
+      scene.add(new T.AmbientLight(0xffffff,.8));
+      var dl=new T.DirectionalLight(0xfff1d6,1.5);dl.position.set(4,6,8);scene.add(dl);
+      var pl=new T.PointLight(0xE8CB93,1.4,30);pl.position.set(-4,-2,6);scene.add(pl);
+
+      var w,h,by=0,mx=0,my=0,vis=true;
+      function size(){
+        w=hero.clientWidth;h=hero.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();
+        var mob=w<820,vw=Math.tan(cam.fov*Math.PI/360)*10*cam.aspect;
+        by=mob?3.1:2.5;grp.position.set(mob?vw*.55:vw*.72,by,mob?-3:-1);grp.scale.setScalar(mob?.5:.6);
+        ico.material.opacity=mob?.3:.55;pts.material.opacity=mob?.6:.85;
+      }
+      size();window.addEventListener('resize',size);
+      new IntersectionObserver(function(en){vis=en[0].isIntersecting;}).observe(hero);
+      var clock=new T.Clock();
+      function loop(){
+        requestAnimationFrame(loop);
+        if(!vis||document.hidden||document.body.classList.contains('sub'))return;
+        var t=clock.getElapsedTime(),sy=Math.min(window.scrollY,h);
+        mx+=(tx-mx)*.05;my+=(ty-my)*.05;
+        pts.rotation.y=t*.02+mx*.08;pts.rotation.x=my*.05;
+        grp.rotation.y=t*.25+mx*.45+sy*.003;grp.rotation.x=Math.sin(t*.4)*.15+my*.3+sy*.002;
+        grp.position.y=by+Math.sin(t*.8)*.18;
+        core.rotation.y=-t*.6;core.rotation.z=t*.3;
+        r1.rotation.z=t*.3;r2.rotation.z=-t*.2;
+        moons.forEach(function(m,k){var a=t*(.6+k*.25)+k*2.1,rr=3.1+k*.4;m.position.set(Math.cos(a)*rr,Math.sin(a*1.3)*.6,Math.sin(a)*rr);});
+        cam.position.x=mx*.7;cam.position.y=-my*.45;cam.position.z=10-sy*.006;cam.lookAt(0,0,0);
+        R.render(scene,cam);
+      }
+      loop();requestAnimationFrame(function(){cv.classList.add('on');});
+    }
+  })();
 })();
 </script>
 </body>
